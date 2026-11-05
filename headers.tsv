@@ -1,2 +1,12 @@
 # Cell FormKey	YAML field	value(s)	winning plugin in the LOOT order: keeps that edit from being reverted by this patch header
+00905C:Skyrim.esm	Regions	1E58EE:Cutting Room Floor.esp,08DC41:Skyrim.esm,090032:Skyrim.esm,0C5853:Skyrim.esm,0C5859:Skyrim.esm,0EC182:Skyrim.esm	cutting room floor.esp
+00905D:Skyrim.esm	Regions	1E58EE:Cutting Room Floor.esp,08DC41:Skyrim.esm,090032:Skyrim.esm,0C5853:Skyrim.esm,0C5859:Skyrim.esm,0EA15B:Skyrim.esm	cutting room floor.esp
+009366:Skyrim.esm	Regions	1E58ED:Cutting Room Floor.esp,08FE40:Skyrim.esm,092DA8:Skyrim.esm,0BD739:Skyrim.esm,0C262A:Skyrim.esm,0C5858:Skyrim.esm,0C5859:Skyrim.esm,0CADEE:Skyrim.esm	cutting room floor.esp
+009366:Skyrim.esm	Location	025A7F:Cutting Room Floor.esp	cutting room floor.esp
+009367:Skyrim.esm	Regions	1E58ED:Cutting Room Floor.esp,08C75F:Skyrim.esm,092DA8:Skyrim.esm,0C5858:Skyrim.esm,0C5859:Skyrim.esm,0CADEE:Skyrim.esm	cutting room floor.esp
+009367:Skyrim.esm	Location	025A7F:Cutting Room Floor.esp	cutting room floor.esp
+009388:Skyrim.esm	Regions	1E58ED:Cutting Room Floor.esp,0C5859:Skyrim.esm,08C75F:Skyrim.esm,092DA8:Skyrim.esm,0C5858:Skyrim.esm,0CADEE:Skyrim.esm,0E8839:Skyrim.esm	cutting room floor.esp
+009388:Skyrim.esm	Location	025A7F:Cutting Room Floor.esp	cutting room floor.esp
+009389:Skyrim.esm	Regions	1E58ED:Cutting Room Floor.esp,0C5859:Skyrim.esm,08C75F:Skyrim.esm,0E8839:Skyrim.esm,0CADEE:Skyrim.esm,0C5858:Skyrim.esm,092DA8:Skyrim.esm,0E8AF9:Skyrim.esm	cutting room floor.esp
+009389:Skyrim.esm	Location	02007A:Skyrim.esm	cutting room floor.esp
 00907B:Skyrim.esm	Location	018A4F:Skyrim.esm	cutting room floor.esp

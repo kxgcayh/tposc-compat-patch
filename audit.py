@@ -89,7 +89,7 @@ def main():
         if i <= t or f not in loc or f in BASE:
             continue
         r = scan(loc[f], bodies=True)
-        nav = sum(1 for k, v in r.items() if k in tp and v[0] in ("NAVM", "LAND"))
+        nav = sum(1 for k, v in r.items() if k in tp and v[0] in ("NAVM", "LAND") and not (k in pr and i < p))
         if nav:
             after.append((f, nav))
         if i > p:
@@ -107,7 +107,7 @@ def main():
                     world += 1
     for f, n in sorted(after, key=lambda x: -x[1]):
         print(f"WORLD: {f} loads after TPOSC and wins {n} navmesh or landscape records")
-    print(f"{world} header issue(s), {len(after)} plugin(s) beating TPOSC on navmesh or landscape.")
+    print(f"{world} header issue(s), {len(after)} plugin(s) beating TPOSC on navmesh or landscape.")  # Helgen Reborn is expected here
 
 
 main()

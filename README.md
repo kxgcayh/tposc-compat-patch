@@ -1,4 +1,4 @@
-# TPOSC - Compatibility Patch 0.2.0
+# TPOSC - Compatibility Patch 0.3.0
 
 Restores USSEP fixes that The People Of Skyrim Complete overwrites without meaning to, and removes 3 doubled fires in
 Hall of the Vigilant when using Embers XD 3.3.0. Plugin only, ESL flagged, adds no new forms.
@@ -9,6 +9,7 @@ Hall of the Vigilant when using Embers XD 3.3.0. Plugin only, ESL flagged, adds 
 - [XD Embers and The People Of Skyrim Complete Patch](https://www.nexusmods.com/skyrimspecialedition/mods/63308) V10.6.2
 - [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085) 3.3.0
 - [Unofficial Skyrim Special Edition Patch](https://www.nexusmods.com/skyrimspecialedition/mods/266)
+- [Cutting Room Floor](https://www.nexusmods.com/skyrimspecialedition/mods/276)
 
 ## Target versions
 
@@ -25,7 +26,8 @@ the firepit Embers XD added to Hall of the Vigilant, and re-enables the 3 fires 
 
 - 83 refs and actors and 24 cells: the TPOSC record, with only the USSEP-fixed fields forwarded (`forward.tsv`).
 - Hall of the Vigilant: restores Embers XD's disabled state for `0C73C8`, `0C73C9`, `0C73CA`.
-- Keeps the cell location Cutting Room Floor sets, so the copied cell header does not revert it (`headers.tsv`).
+- Cutting Room Floor: keeps TPOSC's landscape (13) and navmesh (25) where both edit the same record, so TPOSC's objects stay on their ground without a LOOT rule. Whole records, listed in `world.tsv`.
+- Keeps the locations and regions Cutting Room Floor sets on 7 cell headers, so the copied headers do not revert them (`headers.tsv`).
 - Does not touch navmesh. USSEP's 310 navmesh edits stay overwritten, as they cannot be merged outside the Creation Kit.
 
 ## Install

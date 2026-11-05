@@ -4,7 +4,8 @@
 forward.tsv lists records where USSEP changed a field that The People Of Skyrim Complete left vanilla. Each patch record
 is the TPOSC record with those fields taken from USSEP. HALL also restores Embers XD's disabled state for 3 fires that
 the old TPOSC-Embers patch re-enables. headers.tsv keeps region and location edits that plugins sorted after TPOSC make,
-so this patch's copied cell headers do not revert them wherever LOOT places it. No assets, no new forms.
+so this patch's copied cell headers do not revert them wherever LOOT places it. world.tsv lists whole landscape and
+navmesh records copied from TPOSC where Cutting Room Floor also edits them. No assets, no new forms.
 Usage: python3 build.py            (uses or makes build/yaml-*, prints the records, writes no plugin)
        python3 build.py --write    (also writes dist/ and round-trip checks it)
        python3 build.py --fresh    (re-serializes inputs/ first)
@@ -20,7 +21,7 @@ TPOSC, EMBERS_PATCH = "tpos_ultimate_esm.esp", "tposc_Embers XD_patch.esp"
 USSEP = "Unofficial Skyrim Special Edition Patch.esp"
 SOURCES = {TPOSC: "yaml-tposc", USSEP: "yaml-ussep", "Embers XD.esp": "yaml-embers"}
 ORDER = ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "ccbgssse001-fish.esm", USSEP, "Embers XD.esp",
-         TPOSC, EMBERS_PATCH]
+         TPOSC, "Cutting Room Floor.esp", EMBERS_PATCH]
 HALL = ["0C73C8:Skyrim.esm", "0C73C9:Skyrim.esm", "0C73CA:Skyrim.esm"]  # HallOfTheVigilant01, Embers disables these
 HALL_CELL = "HallOfTheVigilant01 - 0C7348_Skyrim.esm"
 DROP = {"Landscape", "NavigationMeshes", "Persistent", "Temporary"}
@@ -119,6 +120,10 @@ def index(root):
             for k in ("Persistent", "Temporary"):
                 for it in items(c.get(k, [""])):
                     out[fkey(it)] = (p, "ref")
+            for it in items(c.get("NavigationMeshes", [""])):
+                out[fkey(it)] = (p, "navm")
+            if "Landscape" in c:
+                out[fkey(c["Landscape"])] = (p, "land")
     return out
 
 
@@ -138,11 +143,12 @@ def render(path, header_take, src_cell, children):
     if header_take:
         head = overlay(head, src_cell, header_take)
     body = [l for v in head.values() for l in v]
-    for k in ("Persistent", "Temporary"):
+    for k in ("Persistent", "Temporary", "NavigationMeshes"):
         if children.get(k):
             body.append(f"{k}:")
             for it in children[k]:
                 body += it
+    body += children.get("Landscape", [])
     if ind:
         whole = dict(whole)
         whole["TopCell"] = ["TopCell:"] + ["  " + l for l in body]
@@ -162,7 +168,7 @@ def main():
         serialize(dll, INPUTS / EMBERS_PATCH, Y / "yaml-embers-patch")
     tp, us = index(Y / "yaml-tposc"), index(Y / "yaml-ussep")
     want = [l.split("\t") for l in (HERE / "forward.tsv").read_text().splitlines() if l and not l.startswith("#")]
-    files = collections.defaultdict(lambda: {"take": set(), "src": None, "Persistent": [], "Temporary": []})
+    files = collections.defaultdict(lambda: {"take": set(), "src": None, "Persistent": [], "Temporary": [], "NavigationMeshes": [], "Landscape": []})
     stats = collections.Counter()
     for fk, ty, keys in want:
         take = set(keys.split(","))
@@ -183,6 +189,18 @@ def main():
             assert {k for k in set(a) | set(merged) if a.get(k) != merged.get(k)} <= take, fk
             e[lk].append(item_lines(merged))
         stats[ty] += 1
+    for line in (HERE / "world.tsv").read_text().splitlines():
+        if line and not line.startswith("#"):
+            fk, ty = line.split("\t")
+            p, kind = tp[fk]
+            _, c, _ = cell_of(p)
+            if ty == "LAND":
+                assert kind == "land", fk
+                files[p]["Landscape"] = c["Landscape"]
+            else:
+                assert kind == "navm", fk
+                files[p]["NavigationMeshes"] += [i for i in items(c["NavigationMeshes"]) if fkey(i) == fk]
+            stats[ty] += 1
     for line in (HERE / "headers.tsv").read_text().splitlines():
         if line and not line.startswith("#"):
             fk, field, value, _ = line.split("\t")
