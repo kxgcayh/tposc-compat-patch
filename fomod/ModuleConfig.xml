@@ -1,0 +1,43 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+  <moduleName>TPOSC - Compatibility Patch</moduleName>
+  <installSteps order="Explicit">
+    <installStep name="Shared ground">
+      <optionalFileGroups order="Explicit">
+        <group name="Who wins the 13 landscape and 25 navmesh records TPOSC and Cutting Room Floor both edit" type="SelectExactlyOne">
+          <plugins order="Explicit">
+            <plugin name="TPOSC wins">
+              <description>TPOSC's new objects keep their ground in 21 exterior cells. Cutting Room Floor keeps its locations and regions there, but its own objects may sit slightly off and its navmesh is lost in those cells. Requires Cutting Room Floor.</description>
+              <files><folder source="tposc-ground" destination="" priority="0"/></files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Recommended"/>
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And"><fileDependency file="Cutting Room Floor.esp" state="Missing"/></dependencies>
+                      <type name="NotUsable"/>
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+            <plugin name="Cutting Room Floor wins, or you do not use it">
+              <description>Cutting Room Floor keeps all its landscape and navmesh, and LOOT's order decides the rest. TPOSC's new objects in those 21 cells may float or sink, and NPCs may path badly around them. Pick this too if you do not use Cutting Room Floor: this version does not require it.</description>
+              <files><folder source="crf-ground" destination="" priority="0"/></files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional"/>
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And"><fileDependency file="Cutting Room Floor.esp" state="Missing"/></dependencies>
+                      <type name="Recommended"/>
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+  </installSteps>
+</config>

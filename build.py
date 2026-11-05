@@ -25,6 +25,7 @@ ORDER = ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragon
 HALL = ["0C73C8:Skyrim.esm", "0C73C9:Skyrim.esm", "0C73CA:Skyrim.esm"]  # HallOfTheVigilant01, Embers disables these
 HALL_CELL = "HallOfTheVigilant01 - 0C7348_Skyrim.esm"
 DROP = {"Landscape", "NavigationMeshes", "Persistent", "Temporary"}
+VARIANTS = {"tposc-ground": True, "crf-ground": False}  # folder -> carry world.tsv; the FOMOD installs one
 DESC = "Forwards USSEP fields TPOSC left vanilla; fixes stale Hall of the Vigilant fires."
 
 
@@ -157,7 +158,6 @@ def render(path, header_take, src_cell, children):
 
 
 def main():
-    write = "--write" in sys.argv
     check_inputs()
     dll = find_dll()
     for f, d in SOURCES.items():
@@ -167,6 +167,12 @@ def main():
     if "--fresh" in sys.argv or not (Y / "yaml-embers-patch").is_dir():
         serialize(dll, INPUTS / EMBERS_PATCH, Y / "yaml-embers-patch")
     tp, us = index(Y / "yaml-tposc"), index(Y / "yaml-ussep")
+    for name, world in VARIANTS.items():
+        print(f"\n== {name}")
+        build_variant(dll, tp, us, name, world, "--write" in sys.argv)
+
+
+def build_variant(dll, tp, us, name, with_world, write):
     want = [l.split("\t") for l in (HERE / "forward.tsv").read_text().splitlines() if l and not l.startswith("#")]
     files = collections.defaultdict(lambda: {"take": set(), "src": None, "Persistent": [], "Temporary": [], "NavigationMeshes": [], "Landscape": []})
     stats = collections.Counter()
@@ -189,7 +195,7 @@ def main():
             assert {k for k in set(a) | set(merged) if a.get(k) != merged.get(k)} <= take, fk
             e[lk].append(item_lines(merged))
         stats[ty] += 1
-    for line in (HERE / "world.tsv").read_text().splitlines():
+    for line in (HERE / "world.tsv").read_text().splitlines() if with_world else []:
         if line and not line.startswith("#"):
             fk, ty = line.split("\t")
             p, kind = tp[fk]
@@ -205,6 +211,8 @@ def main():
         if line and not line.startswith("#"):
             fk, field, value, _ = line.split("\t")
             assert fk in tp and tp[fk][1] == "cell", f"{fk}: headers.tsv needs a cell"
+            if tp[fk][0] not in files:  # the cell is only in the patch for its world.tsv records
+                continue
             e = files[tp[fk][0]]
             if e["src"] is None:
                 e["src"] = {}
@@ -212,7 +220,7 @@ def main():
             e["src"] = {**e["src"], field: lines}
             e["take"] = e["take"] | {field}
             stats["CELL fields kept"] += 1
-    out = Y / "out"
+    out = Y / "out" / name
     shutil.rmtree(out, ignore_errors=True)
     yroot = Y / "yaml-tposc"
     recs = {}
@@ -260,10 +268,10 @@ def main():
         f"ModKey: {NAME}.esp\nGameRelease: SkyrimSE\nModHeader:\n  Flags:\n  - Small\n"
         "  Stats:\n    Version: 1.7\n    NextFormID: 2048\n  Author: kxgcayh\n"
         f"  Description: {DESC}\n  MasterReferences:\n{mrefs}  INTV: 1\n")
-    esp = HERE / "dist" / f"{NAME}.esp"
-    esp.parent.mkdir(exist_ok=True)
+    esp = HERE / "dist" / name / f"{NAME}.esp"
+    esp.parent.mkdir(parents=True, exist_ok=True)
     run(["dotnet", dll, "deserialize", "-i", out, "-o", esp])
-    rt = Y / "roundtrip"
+    rt = Y / "roundtrip" / name
     shutil.rmtree(rt, ignore_errors=True)
     serialize(dll, esp, rt)
     got = sorted(str(p.relative_to(rt)) for p in rt.rglob("RecordData.yaml") if p.parent != rt)

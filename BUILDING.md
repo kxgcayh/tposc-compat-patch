@@ -15,10 +15,10 @@ from exactly these versions. `headers.tsv` holds the cell fields kept from other
 | `Embers XD.esp` | [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085?tab=files&file_id=821728) 3.3.0, main file "Embers XD 1K" (file ID 821728), the installer's default esm + esp output |
 | `Unofficial Skyrim Special Edition Patch.esp` | [USSEP](https://www.nexusmods.com/skyrimspecialedition/mods/266?tab=files&file_id=800977) 4.3.9c (file ID 800977), named in lower case in the archive: rename it to this |
 
-`Cutting Room Floor.esp` (3.1.26, file ID 796288) is a master but not a build input: `headers.tsv` already holds the values.
+`Cutting Room Floor.esp` (3.1.26, file ID 796288) is a master of the `tposc-ground` plugin but not a build input: `headers.tsv` already holds the values.
 
 ```
 python3 build.py            # dry run: prints records and masters
-python3 build.py --write    # writes dist/ and round-trip checks it
+python3 build.py --write    # writes dist/tposc-ground and dist/crf-ground, round-trip checks both
 python3 build.py --fresh    # re-serializes inputs/ first
 ```
