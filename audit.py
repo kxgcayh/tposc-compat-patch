@@ -49,7 +49,11 @@ def scan(path, bodies=False):
             off += 24 + sz
 
     walk(24 + hs, len(b))
-    return out
+    return out, names
+
+
+def forms(values, names):  # raw FormIDs as (plugin, id), so the same form at another master index compares equal
+    return {(names[min(v >> 24, len(names) - 1)], v & 0xffffff) for raw in values for v in struct.unpack(f"<{len(raw) // 4}I", raw)}
 
 
 def plugin_paths(root, profile, game_data):
@@ -68,6 +72,7 @@ def plugin_paths(root, profile, game_data):
 
 
 def selftest():
+    assert forms([b"\x01\x00\x00\x01"], ["a", "b"]) == forms([b"\x01\x00\x00\x00"], ["b"])  # same form, other master index
     s = subs(b"EDID\x02\x00a\0XXXX\x04\x00\x03\x00\x00\x00DATA\x00\x00abc")
     assert s == {"EDID": [b"a\0"], "DATA": [b"abc"]}, s
 
@@ -82,29 +87,24 @@ def main():
             sys.exit(f"{need} is not active in this profile")
     t, p = order.index(TPOSC), order.index(PATCH)
     print(f"{len(order)} active. TPOSC at {t}, this patch at {p}.")
-    tp, pr = scan(loc[TPOSC]), scan(loc[PATCH], True)
+    (tp, _), (pr, pnames) = scan(loc[TPOSC]), scan(loc[PATCH], True)
     heads = {k: v for k, v in pr.items() if v[0] in ("CELL", "WRLD")}
-    world, after = 0, []
+    world, after, last = 0, [], {}
     for i, f in enumerate(order):
-        if i <= t or f not in loc or f in BASE:
+        if i <= t or i == p or f not in loc or f in BASE:
             continue
-        r = scan(loc[f], bodies=True)
+        r, names = scan(loc[f], bodies=True)
         nav = sum(1 for k, v in r.items() if k in tp and v[0] in ("NAVM", "LAND") and not (k in pr and i < p))
         if nav:
             after.append((f, nav))
-        if i > p:
-            continue
-        for k, h in heads.items():
-            if k in r:
-                a, b = h[2], r[k][2]
-                for field, name in (("XLCN", "location"), ("XOWN", "owner")):
-                    if b.get(field) and a.get(field) != b.get(field):
-                        print(f"HEADER: {f} sets the {name} of {k[1]:06X}; this patch overrides it; check whether headers.tsv needs it")
-                        world += 1
-                reg = lambda s: set(struct.unpack(f"<{len(s['XCLR'][0]) // 4}I", s["XCLR"][0])) if s.get("XCLR") else set()
-                if reg(b) and reg(a) != reg(b):
-                    print(f"HEADER: {f} changes the regions of {k[1]:06X}; check whether headers.tsv needs it")
-                    world += 1
+        if i < p:  # only the last editor before this patch matters: it is what the patch replaces
+            last.update({k: (f, r[k][2], names) for k in heads if k in r})
+    for k, (f, b, names) in last.items():
+        a = heads[k][2]
+        for field, name in (("XLCN", "location"), ("XOWN", "owner"), ("XCLR", "regions")):
+            if b.get(field) and forms(a.get(field, []), pnames) != forms(b[field], names):
+                print(f"HEADER: {f} sets the {name} of {k[1]:06X}; this patch overrides it; check whether headers.tsv needs it")
+                world += 1
     for f, n in sorted(after, key=lambda x: -x[1]):
         print(f"WORLD: {f} loads after TPOSC and wins {n} navmesh or landscape records")
     print(f"{world} header issue(s), {len(after)} plugin(s) beating TPOSC on navmesh or landscape.")  # Helgen Reborn is expected here
