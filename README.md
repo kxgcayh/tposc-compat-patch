@@ -69,7 +69,7 @@ Permissions, read from each mod's Nexus page:
   and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Permission has not been requested.
 - Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
   master. Permission has not been requested.
-- Cutting Room Floor requires permission to modify or upload its files. This plugin holds its form IDs in 7 cell headers and
+- Cutting Room Floor requires permission to modify or upload its files. This plugin references its forms in 6 cell headers and
   requires it as a master. Permission has not been requested.
 
 Do not make this repository or its releases public until those are settled.
