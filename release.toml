@@ -8,3 +8,6 @@ description = "Forwards USSEP fields The People Of Skyrim Complete left vanilla 
 
 [nexus]
 mod_category = 84
+
+[github]
+repo = "kxgcayh/tposc-compat-patch"
