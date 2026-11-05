@@ -1,7 +1,8 @@
 # TPOSC - Compatibility Patch 0.4.0
 
-Restores USSEP fixes that The People Of Skyrim Complete overwrites without meaning to, and removes 3 doubled fires in
-Hall of the Vigilant when using Embers XD 3.3.0. Plugin only, ESL flagged, adds no new forms.
+Restores USSEP fixes that The People Of Skyrim Complete overwrites without meaning to, removes 3 doubled fires in
+Hall of the Vigilant when using Embers XD 3.3.0, and lets you choose who wins the ground TPOSC shares with Cutting Room
+Floor. Plugin only, ESL flagged, adds no new forms, with a FOMOD installer.
 
 ## Requirements
 
@@ -30,15 +31,16 @@ the firepit Embers XD added to Hall of the Vigilant, and re-enables the 3 fires 
 - Offers one choice for the 13 landscape and 25 navmesh records TPOSC and Cutting Room Floor both edit (`world.tsv`):
   - **TPOSC wins:** TPOSC's objects keep their ground. Cutting Room Floor keeps its locations and regions on 7 cell headers (`headers.tsv`), but its objects may sit slightly off there.
   - **Cutting Room Floor wins, or you do not use it:** Cutting Room Floor keeps its ground. TPOSC's objects in those 21 cells may float or sink. This version does not require Cutting Room Floor.
-- Does not touch navmesh. USSEP's 310 navmesh edits stay overwritten, as they cannot be merged outside the Creation Kit.
+- Does not restore USSEP's navmesh. Its 310 navmesh edits stay overwritten, as they cannot be merged outside the Creation Kit.
 
 ## Install
 
 Install with a mod manager, pick your option in the installer, and sort with LOOT. No manual placement: the masters keep the patch after TPOSC and its Embers
 patch, and it does not depend on TPOSC being at the bottom of the load order. New game recommended, as with TPOSC.
 
-If you add mods later, run `python3 audit.py "<MO2 instance folder>" "<profile>"`. It is read-only and reports anything
-that now conflicts with this patch.
+If you add mods later, run `python3 audit.py "<MO2 instance folder>" "<profile>" --game-data "<Skyrim Data folder>"`. It is
+read-only and reports anything that now conflicts with this patch. With the Cutting Room Floor option, it also lists
+Cutting Room Floor as beating TPOSC on 38 records, which is the choice you made.
 
 ## Build from Source
 

@@ -22,3 +22,6 @@ python3 build.py            # dry run: prints records and masters
 python3 build.py --write    # writes dist/tposc-ground and dist/crf-ground, round-trip checks both
 python3 build.py --fresh    # re-serializes inputs/ first
 ```
+
+`fomod/` holds the installer. `python3 ../../tools/mod-release/release.py . github` packages it with both plugins, from the
+workspace's `tools/mod-release`. Without `--publish` it only builds the archive.
