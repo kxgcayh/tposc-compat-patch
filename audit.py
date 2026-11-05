@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""Rerun after adding mods or a LOOT sort. Read-only. Reports what this patch or TPOSC now conflicts with.
+
+Usage: python3 audit.py "<MO2 instance folder>" "<profile name>" [--game-data "<Skyrim Data folder>"]
+"""
+import os, struct, sys, zlib
+
+TPOSC, PATCH = "tpos_ultimate_esm.esp", "tposc - compatibility patch.esp"
+BASE = {"skyrim.esm", "update.esm", "dawnguard.esm", "hearthfires.esm", "dragonborn.esm"}
+
+
+def subs(b):
+    i, big, out = 0, None, {}
+    while i + 6 <= len(b):
+        t, n = b[i:i + 4].decode("latin1"), struct.unpack_from("<H", b, i + 4)[0]
+        i += 6
+        if t == "XXXX":
+            big = struct.unpack_from("<I", b, i)[0]
+            i += n
+            continue
+        n, big = (big, None) if big is not None else (n, None)
+        out.setdefault(t, []).append(b[i:i + n])
+        i += n
+    return out
+
+
+def scan(path, bodies=False):
+    """{(owner plugin, object id): (type, flags, subrecords or None, resolve)} for one plugin."""
+    b = open(path, "rb").read()
+    hs = struct.unpack_from("<I", b, 4)[0]
+    masters = [m.rstrip(b"\0").decode("latin1").lower() for m in subs(b[24:24 + hs]).get("MAST", [])]
+    names = masters + [os.path.basename(path).lower()]
+    out = {}
+
+    def walk(off, end):
+        while off < end:
+            t, sz = b[off:off + 4], struct.unpack_from("<I", b, off + 4)[0]
+            if t == b"GRUP":
+                walk(off + 24, off + sz)
+                off += sz
+                continue
+            fl, fid = struct.unpack_from("<II", b, off + 8)
+            key = (names[min(fid >> 24, len(names) - 1)], fid & 0xffffff)
+            s = None
+            if bodies:
+                body = b[off + 24:off + 24 + sz]
+                s = subs(zlib.decompress(body[4:]) if fl & 0x40000 else body)
+            out[key] = (t.decode("latin1"), fl, s)
+            off += 24 + sz
+
+    walk(24 + hs, len(b))
+    return out
+
+
+def plugin_paths(root, profile, game_data):
+    enabled = [l.strip()[1:] for l in open(os.path.join(root, "profiles", profile, "modlist.txt"), encoding="utf8", errors="replace") if l.startswith("+")]
+    loc = {}
+    for m in reversed(enabled):  # first line of modlist.txt has the highest priority
+        d = os.path.join(root, "mods", m)
+        if os.path.isdir(d):
+            loc.update({f.lower(): os.path.join(d, f) for f in os.listdir(d) if f.lower().endswith((".esp", ".esm", ".esl"))})
+    if game_data and os.path.isdir(game_data):
+        for f in os.listdir(game_data):
+            if f.lower().endswith((".esp", ".esm", ".esl")):
+                loc.setdefault(f.lower(), os.path.join(game_data, f))
+    order = [l.strip()[1:].lower() for l in open(os.path.join(root, "profiles", profile, "plugins.txt"), encoding="utf8", errors="replace") if l.startswith("*")]
+    return order, loc
+
+
+def selftest():
+    s = subs(b"EDID\x02\x00a\0XXXX\x04\x00\x03\x00\x00\x00DATA\x00\x00abc")
+    assert s == {"EDID": [b"a\0"], "DATA": [b"abc"]}, s
+
+
+def main():
+    selftest()
+    args = sys.argv[1:]
+    data = args[args.index("--game-data") + 1] if "--game-data" in args else None
+    order, loc = plugin_paths(args[0], args[1], data)
+    for need in (TPOSC, PATCH):
+        if need not in order:
+            sys.exit(f"{need} is not active in this profile")
+    t, p = order.index(TPOSC), order.index(PATCH)
+    print(f"{len(order)} active. TPOSC at {t}, this patch at {p}.")
+    tp, pr = scan(loc[TPOSC]), scan(loc[PATCH], True)
+    heads = {k: v for k, v in pr.items() if v[0] in ("CELL", "WRLD")}
+    world, after = 0, []
+    for i, f in enumerate(order):
+        if i <= t or f not in loc or f in BASE:
+            continue
+        r = scan(loc[f], bodies=True)
+        nav = sum(1 for k, v in r.items() if k in tp and v[0] in ("NAVM", "LAND"))
+        if nav:
+            after.append((f, nav))
+        if i > p:
+            continue
+        for k, h in heads.items():
+            if k in r:
+                a, b = h[2], r[k][2]
+                for field, name in (("XLCN", "location"), ("XOWN", "owner")):
+                    if b.get(field) and a.get(field) != b.get(field):
+                        print(f"HEADER: {f} sets the {name} of {k[1]:06X}; this patch overrides it. Add it to headers.tsv")
+                        world += 1
+                reg = lambda s: set(struct.unpack(f"<{len(s[0]) // 4}I", s[0])) if s.get("XCLR") else set()
+                if reg(b) and reg(a) != reg(b):
+                    print(f"HEADER: {f} changes the regions of {k[1]:06X}; check whether headers.tsv needs it")
+                    world += 1
+    for f, n in sorted(after, key=lambda x: -x[1]):
+        print(f"WORLD: {f} loads after TPOSC and wins {n} navmesh or landscape records")
+    print(f"{world} header issue(s), {len(after)} plugin(s) beating TPOSC on navmesh or landscape.")
+
+
+main()

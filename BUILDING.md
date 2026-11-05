@@ -6,7 +6,7 @@ Tested: macOS (arm64) only. Needs Python 3, the .NET 10 SDK and the `Spriggit.Ya
 `SPRIGGIT_DLL` lookup in `build.py`).
 
 Put these in `inputs/`. `inputs.sha256` pins them and `build.py` refuses a mismatch, because `forward.tsv` was derived
-from exactly these versions.
+from exactly these versions. `headers.tsv` holds the cell fields kept from other plugins.
 
 | File in `inputs/` | Where it comes from |
 |---|---|

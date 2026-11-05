@@ -3,7 +3,8 @@
 
 forward.tsv lists records where USSEP changed a field that The People Of Skyrim Complete left vanilla. Each patch record
 is the TPOSC record with those fields taken from USSEP. HALL also restores Embers XD's disabled state for 3 fires that
-the old TPOSC-Embers patch re-enables. No assets, no new forms.
+the old TPOSC-Embers patch re-enables. headers.tsv keeps region and location edits that plugins sorted after TPOSC make,
+so this patch's copied cell headers do not revert them wherever LOOT places it. No assets, no new forms.
 Usage: python3 build.py            (uses or makes build/yaml-*, prints the records, writes no plugin)
        python3 build.py --write    (also writes dist/ and round-trip checks it)
        python3 build.py --fresh    (re-serializes inputs/ first)
@@ -182,6 +183,17 @@ def main():
             assert {k for k in set(a) | set(merged) if a.get(k) != merged.get(k)} <= take, fk
             e[lk].append(item_lines(merged))
         stats[ty] += 1
+    for line in (HERE / "headers.tsv").read_text().splitlines():
+        if line and not line.startswith("#"):
+            fk, field, value, _ = line.split("\t")
+            assert fk in tp and tp[fk][1] == "cell", f"{fk}: headers.tsv needs a cell"
+            e = files[tp[fk][0]]
+            if e["src"] is None:
+                e["src"] = {}
+            lines = [f"{field}:"] + [f"- {v}" for v in value.split(",")] if field == "Regions" else [f"{field}: {value}"]
+            e["src"] = {**e["src"], field: lines}
+            e["take"] = e["take"] | {field}
+            stats["CELL fields kept"] += 1
     out = Y / "out"
     shutil.rmtree(out, ignore_errors=True)
     yroot = Y / "yaml-tposc"
