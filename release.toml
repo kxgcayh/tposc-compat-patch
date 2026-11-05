@@ -1,0 +1,10 @@
+name = "tposc-compat-patch"
+display_name = "TPOSC - Compatibility Patch"
+version = "0.1.0"
+description = "Forwards USSEP fields The People Of Skyrim Complete left vanilla and fixes stale Hall of the Vigilant fires."
+
+[files]
+"TPOSC - Compatibility Patch.esp" = "dist/TPOSC - Compatibility Patch.esp"
+
+[nexus]
+mod_category = 84
