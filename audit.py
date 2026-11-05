@@ -101,7 +101,7 @@ def main():
                     if b.get(field) and a.get(field) != b.get(field):
                         print(f"HEADER: {f} sets the {name} of {k[1]:06X}; this patch overrides it. Add it to headers.tsv")
                         world += 1
-                reg = lambda s: set(struct.unpack(f"<{len(s[0]) // 4}I", s[0])) if s.get("XCLR") else set()
+                reg = lambda s: set(struct.unpack(f"<{len(s['XCLR'][0]) // 4}I", s["XCLR"][0])) if s.get("XCLR") else set()
                 if reg(b) and reg(a) != reg(b):
                     print(f"HEADER: {f} changes the regions of {k[1]:06X}; check whether headers.tsv needs it")
                     world += 1
