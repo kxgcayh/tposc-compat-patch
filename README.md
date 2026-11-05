@@ -52,7 +52,7 @@ and navmesh records byte-identical to TPOSC).
 Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list, using DevBench and screenshots:
 
 - All 8 TPOSC inns, The Frozen Hearth and Hall of the Vigilant load, with fire records in each. Hall shows only the Embers firepit.
-- 9 patched exteriors load, and the 6 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
+- 9 patched exteriors load, and the 7 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
 - Helgen Reborn's town loads, outside its quest.
 
 Not tested: the Helgen Reborn quest, NPC pathing on the changed navmesh, Papyrus logs, and a long playthrough. One crash
@@ -60,8 +60,7 @@ occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named
 
 ## Credits and Permissions
 
-Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), the USSEP team, and the Cutting Room Floor author. Wolfpack49
-is not a source of this patch.
+Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), Arthmoor (Cutting Room Floor) and the USSEP team.
 
 Permissions, read from each mod's Nexus page:
 
@@ -70,7 +69,8 @@ Permissions, read from each mod's Nexus page:
   and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Permission has not been requested.
 - Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
   master. Permission has not been requested.
-- Cutting Room Floor permissions have not been read.
+- Cutting Room Floor requires permission to modify or upload its files. This plugin holds its form IDs in 7 cell headers and
+  requires it as a master. Permission has not been requested.
 
 Do not make this repository or its releases public until those are settled.
 
