@@ -10,10 +10,12 @@ from exactly these versions. `headers.tsv` holds the cell fields kept from other
 
 | File in `inputs/` | Where it comes from |
 |---|---|
-| `tpos_ultimate_esm.esp` | [TPOSC](https://www.nexusmods.com/skyrimspecialedition/mods/13196) V11.1.6, BSA version |
-| `tposc_Embers XD_patch.esp` | [patch 63308](https://www.nexusmods.com/skyrimspecialedition/mods/63308) V10.6.2 |
-| `Embers XD.esp` | [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085) 3.3.0, default esm + esp install |
-| `Unofficial Skyrim Special Edition Patch.esp` | [USSEP](https://www.nexusmods.com/skyrimspecialedition/mods/266), rename from the lower-case name in the archive |
+| `tpos_ultimate_esm.esp` | [TPOSC](https://www.nexusmods.com/skyrimspecialedition/mods/13196?tab=files&file_id=382604) V11.1.6, main file "The People Of Skyrim Complete BSA File Version" (file ID 382604) |
+| `tposc_Embers XD_patch.esp` | [Patch 63308](https://www.nexusmods.com/skyrimspecialedition/mods/63308?tab=files&file_id=262896) V10.6.2 (file ID 262896) |
+| `Embers XD.esp` | [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085?tab=files&file_id=821728) 3.3.0, main file "Embers XD 1K" (file ID 821728), the installer's default esm + esp output |
+| `Unofficial Skyrim Special Edition Patch.esp` | [USSEP](https://www.nexusmods.com/skyrimspecialedition/mods/266?tab=files&file_id=800977) 4.3.9c (file ID 800977), named in lower case in the archive: rename it to this |
+
+`Cutting Room Floor.esp` (3.1.26, file ID 796288) is a master but not a build input: `headers.tsv` already holds the values.
 
 ```
 python3 build.py            # dry run: prints records and masters

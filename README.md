@@ -8,8 +8,9 @@ Hall of the Vigilant when using Embers XD 3.3.0. Plugin only, ESL flagged, adds 
 - [The People Of Skyrim Complete](https://www.nexusmods.com/skyrimspecialedition/mods/13196) V11.1.6
 - [XD Embers and The People Of Skyrim Complete Patch](https://www.nexusmods.com/skyrimspecialedition/mods/63308) V10.6.2
 - [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085) 3.3.0
-- [Unofficial Skyrim Special Edition Patch](https://www.nexusmods.com/skyrimspecialedition/mods/266)
-- [Cutting Room Floor](https://www.nexusmods.com/skyrimspecialedition/mods/276)
+- [Unofficial Skyrim Special Edition Patch](https://www.nexusmods.com/skyrimspecialedition/mods/266) 4.3.9c
+- [Cutting Room Floor](https://www.nexusmods.com/skyrimspecialedition/mods/276) 3.1.26
+- `ccbgssse001-fish.esm` (Creation Club Fishing). USSEP already requires it.
 
 ## Target versions
 
@@ -44,14 +45,34 @@ See [BUILDING.md](BUILDING.md). Technical notes: [NOTES.md](NOTES.md).
 
 ## Verification Status
 
-Checked: Spriggit round trip, and an independent binary parser (masters, ESL flag, no new forms, every forwarded field
-equals USSEP's, every other REFR field equals TPOSC's within float rounding, Hall refs disabled).
-Not tested in game.
+Checked offline: Spriggit round trip, and an independent binary parser (masters, ESL flag, no new forms, every forwarded
+field equals USSEP's, every other REFR field equals TPOSC's within float rounding, Hall refs disabled, all 38 landscape
+and navmesh records byte-identical to TPOSC).
+
+Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list, using DevBench and screenshots:
+
+- All 8 TPOSC inns, The Frozen Hearth and Hall of the Vigilant load, with fire records in each. Hall shows only the Embers firepit.
+- 9 patched exteriors load, and the 6 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
+- Helgen Reborn's town loads, outside its quest.
+
+Not tested: the Helgen Reborn quest, NPC pathing on the changed navmesh, Papyrus logs, and a long playthrough. One crash
+occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named no record and did not recur at a slower pace.
 
 ## Credits and Permissions
 
-Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), the USSEP team. Their permissions have not been reviewed
-for publishing, as this is a personal patch for now.
+Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), the USSEP team, and the Cutting Room Floor author. Wolfpack49
+is not a source of this patch.
+
+Permissions, read from each mod's Nexus page:
+
+- USSEP allows use as a master and copying fixes unaltered, which is all this patch does.
+- TPOSC does not allow redistributing its files "in whole or part" without express permission. This plugin copies TPOSC cell
+  and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Permission has not been requested.
+- Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
+  master. Permission has not been requested.
+- Cutting Room Floor permissions have not been read.
+
+Do not make this repository or its releases public until those are settled.
 
 ## License
 
