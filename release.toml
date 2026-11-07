@@ -8,6 +8,8 @@ description = "Forwards USSEP fields The People Of Skyrim Complete left vanilla 
 "fomod/ModuleConfig.xml" = "fomod/ModuleConfig.xml"
 "tposc-ground/TPOSC - Compatibility Patch.esp" = "dist/tposc-ground/TPOSC - Compatibility Patch.esp"
 "crf-ground/TPOSC - Compatibility Patch.esp" = "dist/crf-ground/TPOSC - Compatibility Patch.esp"
+"LICENSE" = "LICENSE"
+"THIRD-PARTY-NOTICES.txt" = "THIRD-PARTY-NOTICES.txt"
 
 [nexus]
 mod_category = 84
