@@ -44,7 +44,7 @@ Cutting Room Floor as beating TPOSC on 38 records, which is the choice you made.
 
 ## Build from Source
 
-See [BUILDING.md](BUILDING.md). Technical notes: [NOTES.md](NOTES.md).
+See [BUILDING.md](BUILDING.md).
 
 ## Verification Status
 
