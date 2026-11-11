@@ -65,6 +65,8 @@ occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named
 
 ## Credits and Permissions
 
+Re-checked on 2026-11-11 against each mod's Nexus permission block and author notes: the Nexus-page permissions below still match; the author messages are not re-checkable.
+
 Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), Arthmoor (Cutting Room Floor) and the USSEP team.
 
 Permissions, read from each mod's Nexus page:
@@ -78,6 +80,17 @@ Permissions, read from each mod's Nexus page:
   requires it as a master. The other option uses nothing from it. Arthmoor allowed this patch on 2026-11-06 through Nexus Mods messages.
 
 The permissions above are the maintainer's record of private messages; the messages are not published here.
+
+## More mods
+
+Other Skyrim mods by kxgcayh:
+
+- [waccf-simonrim-skypatcher-patch](https://github.com/kxgcayh/waccf-simonrim-skypatcher-patch): Restores Simonrim enchantments, charges and names, and Gourmet effects, over WACCF's SkyPatcher configs.
+- [odin-mysticism-adamant-patch](https://github.com/kxgcayh/odin-mysticism-adamant-patch): Lets Odin - Skyrim Magic Overhaul run with Mysticism and Adamant.
+- [beasthhbb-ibeasts-jkj-patch](https://github.com/kxgcayh/beasthhbb-ibeasts-jkj-patch): Fixes headless and dark-faced Khajiit when Project ja-Kha'jay is used with BeastHHBB and iBeasts.
+- [lawless-tamrielic-patch-update](https://github.com/kxgcayh/lawless-tamrielic-patch-update): Updates the Lawless Bandit War plugins for Tamrielic Distribution 2.0 and later.
+- [UntarnishedUI-QuickLootIE-Patch](https://github.com/kxgcayh/UntarnishedUI-QuickLootIE-Patch): Untarnished UI skins for QuickLoot IE 4.x.
+- [WhereWasI](https://github.com/kxgcayh/WhereWasI): SKSE plugin: a recap on save load after a break.
 
 ## License
 
