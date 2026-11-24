@@ -101,8 +101,9 @@ def main():
             last.update({k: (f, r[k][2], names) for k in heads if k in r})
     for k, (f, b, names) in last.items():
         a = heads[k][2]
-        for field, name in (("XLCN", "location"), ("XOWN", "owner"), ("XCLR", "regions")):
-            if b.get(field) and forms(a.get(field, []), pnames) != forms(b[field], names):
+        for field, name in (("XLCN", "location"), ("XOWN", "owner"), ("XCLR", "regions"), ("XCMO", "music"),
+                            ("XCAS", "acoustic space"), ("XCIM", "image space"), ("LTMP", "lighting template")):
+            if b.get(field) and sorted(forms(a.get(field, []), pnames)) != sorted(forms(b[field], names)):
                 print(f"HEADER: {f} sets the {name} of {k[1]:06X}; this patch overrides it; check whether headers.tsv needs it")
                 world += 1
     for f, n in sorted(after, key=lambda x: -x[1]):

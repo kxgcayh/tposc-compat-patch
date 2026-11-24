@@ -1,4 +1,4 @@
-# TPOSC - Compatibility Patch 0.4.0
+# TPOSC - Compatibility Patch 0.4.1
 
 Restores USSEP fixes that The People Of Skyrim Complete overwrites without meaning to, removes 3 doubled fires in
 Hall of the Vigilant when using Embers XD 3.3.0, and lets you choose who wins the ground TPOSC shares with Cutting Room
@@ -28,8 +28,9 @@ the firepit Embers XD added to Hall of the Vigilant, and re-enables the 3 fires 
 
 - 83 refs and actors and 24 cells: the TPOSC record, with only the USSEP-fixed fields forwarded (`forward.tsv`).
 - Hall of the Vigilant: restores Embers XD's disabled state for `0C73C8`, `0C73C9`, `0C73CA`.
+- Dragon Bridge exterior `009349`: keeps Embers XD's location in both options (`headers.tsv`).
 - Offers one choice for the 13 landscape and 25 navmesh records TPOSC and Cutting Room Floor both edit (`world.tsv`):
-  - **TPOSC wins:** TPOSC's objects keep their ground. Cutting Room Floor keeps its locations and regions on 7 cell headers (`headers.tsv`), but its objects may sit slightly off there.
+  - **TPOSC wins:** TPOSC's objects keep their ground. Cutting Room Floor keeps its locations and regions on 8 cell headers (`headers.tsv`), but its objects may sit slightly off there.
   - **Cutting Room Floor wins, or you do not use it:** Cutting Room Floor keeps its ground. TPOSC's objects in those 21 cells may float or sink. This version does not require Cutting Room Floor.
 - Does not restore USSEP's navmesh. Its 310 navmesh edits stay overwritten, as they cannot be merged outside the Creation Kit.
 
@@ -58,7 +59,7 @@ Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list,
 - 9 patched exteriors load, and the 7 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
 - Helgen Reborn's town loads, outside its quest.
 
-All of this was the "TPOSC wins" option. The other option's plugin passed the same offline checks but was not run in game.
+All of this was the "TPOSC wins" option, on 0.4.0. 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`), checked offline only. The other option's plugin passed the same offline checks but was not run in game.
 
 Not tested: the Helgen Reborn quest, NPC pathing on the changed navmesh, Papyrus logs, and a long playthrough. One crash
 occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named no record and did not recur at a slower pace.
@@ -76,7 +77,7 @@ Permissions, read from each mod's Nexus page:
   and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Nesbit098 allowed this patch on 2026-11-06 through Nexus Mods messages.
 - Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
   master. mindfIux allowed this patch on 2026-11-06 through Nexus Mods messages.
-- Cutting Room Floor requires permission to modify or upload its files. The "TPOSC wins" plugin references its forms in 6 cell headers and
+- Cutting Room Floor requires permission to modify or upload its files. The "TPOSC wins" plugin references its forms in 7 cell headers and
   requires it as a master. The other option uses nothing from it. Arthmoor allowed this patch on 2026-11-06 through Nexus Mods messages.
 
 The permissions above are the maintainer's record of private messages; the messages are not published here.
