@@ -63,7 +63,7 @@ Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list,
 The list above was the "TPOSC wins" option on 0.4.0. Later versions:
 
 - 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`). The "TPOSC wins" option was played and looked normal; the fields were checked offline.
-- 0.4.2 makes the 6 worldspace records partial forms, so they no longer set the Small World flag USSEP clears in Solitude, Whiterun, Riften and Windhelm. Only those 6 records differ from 0.4.1. With a test plugin that made the partial records win, all 5 small worlds and Tamriel loaded and the cities looked normal (the main gates of Whiterun and Riften were not used). The 0.4.2 plugin itself was not run.
+- 0.4.2 makes the 6 worldspace records partial forms, so they no longer set the Small World flag USSEP clears in Solitude, Whiterun, Riften and Windhelm. Only those 6 records differ from 0.4.1. With a test plugin that made the partial records win, all 5 small worlds and Tamriel loaded and the cities looked normal (the main gates of Whiterun and Riften were not used). The 0.4.2 "TPOSC wins" plugin was then walked through Nightgate Inn and its exterior, Frost River, Solitude, Windhelm and Karthspire Redoubt without a crash; Frost River keeps its Cutting Room Floor location.
 
 The "Cutting Room Floor wins" plugin passed the same offline checks but was not run in game.
 
