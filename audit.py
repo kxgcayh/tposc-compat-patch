@@ -88,7 +88,7 @@ def main():
     t, p = order.index(TPOSC), order.index(PATCH)
     print(f"{len(order)} active. TPOSC at {t}, this patch at {p}.")
     (tp, _), (pr, pnames) = scan(loc[TPOSC]), scan(loc[PATCH], True)
-    heads = {k: v for k, v in pr.items() if v[0] in ("CELL", "WRLD")}
+    heads = {k: v for k, v in pr.items() if v[0] == "CELL" or (v[0] == "WRLD" and not v[1] & 0x4000)}  # a partial form overrides nothing
     world, after, last = 0, [], {}
     for i, f in enumerate(order):
         if i <= t or i == p or f not in loc or f in BASE:
