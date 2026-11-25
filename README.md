@@ -1,4 +1,4 @@
-# TPOSC - Compatibility Patch 0.4.1
+# TPOSC - Compatibility Patch 0.4.2
 
 Restores USSEP fixes that The People Of Skyrim Complete overwrites without meaning to, removes 3 doubled fires in
 Hall of the Vigilant when using Embers XD 3.3.0, and lets you choose who wins the ground TPOSC shares with Cutting Room
@@ -59,7 +59,7 @@ Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list,
 - 9 patched exteriors load, and the 7 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
 - Helgen Reborn's town loads, outside its quest.
 
-All of this was the "TPOSC wins" option, on 0.4.0. 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`), checked offline only. The other option's plugin passed the same offline checks but was not run in game.
+0.4.2 makes the 6 worldspace records partial forms, so they no longer set the Small World flag USSEP clears in Solitude, Whiterun, Riften and Windhelm; checked offline only. All of this was the "TPOSC wins" option, on 0.4.0. 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`), checked offline only. The other option's plugin passed the same offline checks but was not run in game.
 
 Not tested: the Helgen Reborn quest, NPC pathing on the changed navmesh, Papyrus logs, and a long playthrough. One crash
 occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named no record and did not recur at a slower pace.

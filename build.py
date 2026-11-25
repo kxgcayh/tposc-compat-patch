@@ -157,6 +157,16 @@ def render(path, header_take, src_cell, children):
     return "\n".join(body) + "\n"
 
 
+WRLD_KEEP = {"FormKey", "EditorID", "ObjectBoundsMin", "ObjectBoundsMax", "TopCell"}
+
+
+def partial(text):
+    """A worldspace header as a partial form (0x4000): it holds the patched cells and changes nothing in the worldspace."""
+    w = {k: v for k, v in blocks(text.splitlines()).items() if k in WRLD_KEEP}
+    flag = {"MajorRecordFlagsRaw": ["MajorRecordFlagsRaw: 16384"], "SkyrimMajorRecordFlags": ["SkyrimMajorRecordFlags:", "- 0x4000"], "MajorFlags": ["MajorFlags:", "- 0x4000"]}
+    return "\n".join(l for v in {**w, **flag}.values() for l in v) + "\n"
+
+
 def main():
     check_inputs()
     dll = find_dll()
@@ -231,6 +241,8 @@ def build_variant(dll, tp, us, name, with_world, write):
             ws = pathlib.Path(*rel.parts[:2]) / "RecordData.yaml"
             if ws not in recs:
                 recs[ws] = render(yroot / ws, set(), None, {})
+    for rel in [r for r in recs if r.parts[0] == "Worldspaces" and len(r.parts) == 3]:
+        recs[rel] = partial(recs[rel])
     # Hall of the Vigilant: Embers XD's own record for each fire, in Embers' cell header
     hp = next((Y / "yaml-embers").rglob(HALL_CELL)) / "RecordData.yaml"
     hall = {"Persistent": [], "Temporary": []}
