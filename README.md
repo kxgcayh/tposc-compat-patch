@@ -66,21 +66,14 @@ occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named
 
 ## Credits and Permissions
 
-Re-checked on 2026-11-11 against each mod's Nexus permission block and author notes: the Nexus-page permissions below still match; the author messages are not re-checkable.
+- [The People Of Skyrim Complete](https://www.nexusmods.com/skyrimspecialedition/mods/13196) and its [Embers XD patch](https://www.nexusmods.com/skyrimspecialedition/mods/63308), Nesbit098: not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+- [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085), mindfIux: not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+- [Cutting Room Floor](https://www.nexusmods.com/skyrimspecialedition/mods/276), Arthmoor: not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+- [Unofficial Skyrim Special Edition Patch](https://www.nexusmods.com/skyrimspecialedition/mods/266), the USSEP team: allowed based on the Nexus page permissions.
 
-Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), Arthmoor (Cutting Room Floor) and the USSEP team.
+Permission still needed: none.
 
-Permissions, read from each mod's Nexus page:
-
-- USSEP allows use as a master and copying fixes unaltered, which is all this patch does.
-- TPOSC does not allow redistributing its files "in whole or part" without express permission. This plugin copies TPOSC cell
-  and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Nesbit098 allowed this patch on 2026-11-06 through Nexus Mods messages.
-- Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
-  master. mindfIux allowed this patch on 2026-11-06 through Nexus Mods messages.
-- Cutting Room Floor requires permission to modify or upload its files. The "TPOSC wins" plugin references its forms in 7 cell headers and
-  requires it as a master. The other option uses nothing from it. Arthmoor allowed this patch on 2026-11-06 through Nexus Mods messages.
-
-The permissions above are the maintainer's record of private messages; the messages are not published here.
+The messages are the maintainer's record and are not published here.
 
 ## More mods
 

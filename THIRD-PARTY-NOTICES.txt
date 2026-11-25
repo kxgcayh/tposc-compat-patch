@@ -3,16 +3,14 @@ TPOSC - Compatibility Patch - Third-party notices
 TPOSC - Compatibility Patch is licensed MIT (see LICENSE), which covers its scripts and documents only.
 The plugin and any other files in this package are derived from the mods below and stay under their authors' permissions.
 
-Nesbit098 (TPOSC and its Embers patch), mindfIux (Embers XD), Arthmoor (Cutting Room Floor) and the USSEP team.
+Nesbit098 (The People Of Skyrim Complete and its Embers XD patch): not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+  This plugin copies TPOSC cell and worldspace headers, placed-record data, and 38 whole landscape and navmesh records ("TPOSC wins" option).
+mindfIux (Embers XD): not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+  This plugin holds no Embers XD forms and requires the plugin as a master.
+Arthmoor (Cutting Room Floor): not granted on the Nexus page; allowed for this patch by message on 2026-11-06.
+  The "TPOSC wins" plugin references its forms in 7 cell headers and requires it as a master. The other option uses nothing from it.
+The USSEP team (Unofficial Skyrim Special Edition Patch): allowed based on the Nexus page permissions.
 
-Permissions, read from each mod's Nexus page:
+Permission still needed: none.
 
-- USSEP allows use as a master and copying fixes unaltered, which is all this patch does.
-- TPOSC does not allow redistributing its files "in whole or part" without express permission. This plugin copies TPOSC cell
-  and worldspace headers, placed-record data, and 38 whole landscape and navmesh records. Nesbit098 allowed this patch on 2026-11-06 through Nexus Mods messages.
-- Embers XD requires permission to modify its files. This plugin holds no Embers XD forms, but it requires the plugin as a
-  master. mindfIux allowed this patch on 2026-11-06 through Nexus Mods messages.
-- Cutting Room Floor requires permission to modify or upload its files. The "TPOSC wins" plugin references its forms in 6 cell headers and
-  requires it as a master. The other option uses nothing from it. Arthmoor allowed this patch on 2026-11-06 through Nexus Mods messages.
-
-The permissions above are the maintainer's record of private messages; the messages are not published here.
+The messages are the maintainer's record and are not published here.
