@@ -32,6 +32,7 @@ the firepit Embers XD added to Hall of the Vigilant, and re-enables the 3 fires 
 - Offers one choice for the 13 landscape and 25 navmesh records TPOSC and Cutting Room Floor both edit (`world.tsv`):
   - **TPOSC wins:** TPOSC's objects keep their ground. Cutting Room Floor keeps its locations and regions on 8 cell headers (`headers.tsv`), but its objects may sit slightly off there.
   - **Cutting Room Floor wins, or you do not use it:** Cutting Room Floor keeps its ground. TPOSC's objects in those 21 cells may float or sink. This version does not require Cutting Room Floor.
+- Carries 6 worldspace records as partial forms, only to hold the patched cells. They are meant to change nothing in the worldspace.
 - Does not restore USSEP's navmesh. Its 310 navmesh edits stay overwritten, as they cannot be merged outside the Creation Kit.
 
 ## Install
@@ -59,7 +60,12 @@ Tested in game on AE 1.7.104 under CrossOver with a 752-plugin LOOT-sorted list,
 - 9 patched exteriors load, and the 7 viewed look right. Heljarchen and Frost River keep their Cutting Room Floor locations.
 - Helgen Reborn's town loads, outside its quest.
 
-0.4.2 makes the 6 worldspace records partial forms, so they no longer set the Small World flag USSEP clears in Solitude, Whiterun, Riften and Windhelm; checked offline only. All of this was the "TPOSC wins" option, on 0.4.0. 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`), checked offline only. The other option's plugin passed the same offline checks but was not run in game.
+The list above was the "TPOSC wins" option on 0.4.0. Later versions:
+
+- 0.4.1 adds three cell header fields (Cutting Room Floor's location and regions on Frost River `009387`, Embers XD's location on `009349`). The "TPOSC wins" option was played and looked normal; the fields were checked offline.
+- 0.4.2 makes the 6 worldspace records partial forms, so they no longer set the Small World flag USSEP clears in Solitude, Whiterun, Riften and Windhelm. Only those 6 records differ from 0.4.1. With a test plugin that made the partial records win, all 5 small worlds and Tamriel loaded and the cities looked normal (the main gates of Whiterun and Riften were not used). The 0.4.2 plugin itself was not run.
+
+The "Cutting Room Floor wins" plugin passed the same offline checks but was not run in game.
 
 Not tested: the Helgen Reborn quest, NPC pathing on the changed navmesh, Papyrus logs, and a long playthrough. One crash
 occurred during rapid `coc` travel, in vanilla effect-shader rendering. It named no record and did not recur at a slower pace.
